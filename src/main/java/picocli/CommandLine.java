@@ -7861,7 +7861,7 @@ public class CommandLine {
             try {
                 return converter.convert(value);
             } catch (TypeConversionException ex) {
-                String msg = String.format("Invalid value for %s: %s", optionDescription("", argSpec, index), ex.getMessage());
+                String msg = ex.getMessage();
                 throw new ParameterException(CommandLine.this, msg, argSpec, value);
             } catch (Exception other) {
                 String desc = optionDescription("", argSpec, index);
