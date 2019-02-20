@@ -1041,7 +1041,10 @@ public class CommandLine {
             internalHandleParseException(ex, err(), ansi(), args); return returnResultOrExit(null); }
 
         private void internalHandleParseException(ParameterException ex, PrintStream out, Help.Ansi ansi, String[] args) {
-            out.println(ex.getMessage());
+            if(ex.getMessage() != null) {
+                out.println(ex.getMessage());
+            }
+
             if (!UnmatchedArgumentException.printSuggestions(ex, out)) {
                 ex.getCommandLine().usage(out, ansi);
             }
@@ -7939,7 +7942,7 @@ public class CommandLine {
                                 if (upper.equals(String.valueOf(enumConstant).toUpperCase())) { return enumConstant; }
                             }
                         }
-                        try { return Enum.valueOf((Class<Enum>) type, value); }
+                        try { return Enum.valueOf((Class<Enum>) type, value.toUpperCase()); }
                         catch (Exception ex) { throw new TypeConversionException(
                                 String.format("expected one of %s but was '%s'", Arrays.asList(type.getEnumConstants()), value)); }
                     }
